@@ -27,14 +27,14 @@ function ResetPassword() {
             try {
                 if (resetPasswordStep === 1) {
                     await generateOtp(userEmail);
-                    setResetPasswordStep(3);
+                    setResetPasswordStep(2);
                 } else if (resetPasswordStep === 2) {
-                    const {data} = await verifyResetPasswordOtp({ email: userEmail, otp });
+                    const { data } = await verifyResetPasswordOtp({ email: userEmail, otp });
                     console.log(data);
                     setToken(data.data.token);
                     setResetPasswordStep(3);
                 } else if (resetPasswordStep === 3) {
-                    const {data} = await resetPassword({ email: userEmail, token, passowrd, password_confirmation:confirmPassword });
+                    const { data } = await resetPassword({ email: userEmail, token, passowrd, password_confirmation: confirmPassword });
                     console.log(data);
                     navigator("/login");
                 }
@@ -57,35 +57,35 @@ function ResetPassword() {
                     <h2>Reset Password</h2>
                     {
                         resetPasswordStep === 1 && <Form noValidate validated={validated} onSubmit={onHandleSubmit}>
-                        <Form.Group className='mt-3' >
-                            <Form.Label>Email Address</Form.Label>
+                            <Form.Group className='mt-3' >
+                                <Form.Label>Email Address</Form.Label>
                                 <Form.Control type="email" value={userEmail} required onChange={event => {
                                     setUserEmail(event.target.value)
-                            }} />
-                            <Form.Control.Feedback type="invalid">
-                                Please provide a valid Email.
-                            </Form.Control.Feedback>
-                        </Form.Group>
+                                }} />
+                                <Form.Control.Feedback type="invalid">
+                                    Please provide a valid Email.
+                                </Form.Control.Feedback>
+                            </Form.Group>
                             <Button className='my-4' type="submit" disabled={isLoading}>Generate OTP
-                            {isLoading && <Spinner size='sm' />}
+                                {isLoading && <Spinner size='sm' />}
                             </Button>
                             <Link className='mx-4' to="/login">Login</Link>
-                    </Form>
+                        </Form>
                     }
 
                     {
                         resetPasswordStep === 2 && <Form noValidate validated={validated} onSubmit={onHandleSubmit}>
-                        <Form.Group className='mt-3' >
-                            <Form.Label>Enter OTP</Form.Label>
+                            <Form.Group className='mt-3' >
+                                <Form.Label>Enter OTP</Form.Label>
                                 <Form.Control type="text" value={otp} required onChange={event => {
                                     setOtp(event.target.value)
-                            }} />
-                            <Form.Control.Feedback type="invalid">
-                                Please provide a valid OTP.
-                            </Form.Control.Feedback>
+                                }} />
+                                <Form.Control.Feedback type="invalid">
+                                    Please provide a valid OTP.
+                                </Form.Control.Feedback>
                             </Form.Group>
                             <Button className='my-4' type="submit" disabled={isLoading}>Verify OTP
-                            {isLoading && <Spinner size='sm' />}
+                                {isLoading && <Spinner size='sm' />}
                             </Button>
                             <Button className='m-4' onClick={() => {
                                 setResetPasswordStep(1)
@@ -94,37 +94,37 @@ function ResetPassword() {
                         </Form>
                     }
 
-{
+                    {
                         resetPasswordStep === 3 && <Form noValidate validated={validated} onSubmit={onHandleSubmit}>
-                        <Form.Group className='mt-3' >
-                            <Form.Label>Password</Form.Label>
+                            <Form.Group className='mt-3' >
+                                <Form.Label>Password</Form.Label>
                                 <Form.Control type="password" value={passowrd} required onChange={event => {
                                     setPassword(event.target.value)
-                            }} />
-                            <Form.Control.Feedback type="invalid">
-                                Please provide a password.
-                            </Form.Control.Feedback>
+                                }} />
+                                <Form.Control.Feedback type="invalid">
+                                    Please provide a password.
+                                </Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group className='mt-3' >
-                            <Form.Label>Confirm Password</Form.Label>
+                                <Form.Label>Confirm Password</Form.Label>
                                 <Form.Control type="password" value={confirmPassword} required onChange={event => {
                                     setConfirmPassword(event.target.value)
                                 }} />
-                                
+
                                 {
                                     passowrd && confirmPassword && passowrd !== confirmPassword && <p className='text-danger' type="invalid">
-                                    Password not matched
-                                </p>
+                                        Password not matched
+                                    </p>
                                 }
-                            <Form.Control.Feedback type="invalid">
-                                Please provide a confirm password.
-                            </Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
+                                    Please provide a confirm password.
+                                </Form.Control.Feedback>
                             </Form.Group>
 
-                            
+
                             <Button className='my-4' type="submit" disabled={isLoading || (!passowrd || !confirmPassword || passowrd !== confirmPassword)}>Submit
-                            {isLoading && <Spinner size='sm' />}
+                                {isLoading && <Spinner size='sm' />}
                             </Button>
                             <Button className='m-4' onClick={() => {
                                 setResetPasswordStep(2)
@@ -132,7 +132,7 @@ function ResetPassword() {
                             </Button>
                         </Form>
                     }
-                    
+
                 </Col>
             </Row>
             {
