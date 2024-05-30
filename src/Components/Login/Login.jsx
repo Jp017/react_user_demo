@@ -12,7 +12,7 @@ function Login() {
         localStorage.removeItem("token")
     }, [])
 
-    const handleSubmit = async(event) => {
+    const handleSubmit = async (event) => {
         const form = event.currentTarget;
         event.stopPropagation();
         event.preventDefault();
@@ -23,7 +23,7 @@ function Login() {
             const email = form.elements["email"].value;
             const password = form.elements["password"].value;
             try {
-                const {data} = await login({email,password});
+                const { data } = await login({ email, password });
                 console.log(data);
                 localStorage.setItem("token", data.data.token);
                 navigator("/profile")
@@ -32,7 +32,7 @@ function Login() {
                     console.log(error.response.data)
                     setError(error.response.data.error)
                 }
-                
+
             }
         } else {
             setValidated(true);
@@ -68,10 +68,10 @@ function Login() {
             </Row>
             {
                 error && <Row className='justify-content-md-center'>
-                            <Col md={6} className='text-danger'>
-                                <pre>{ JSON.stringify(error, null, 2)}</pre>
-                            </Col>
-                        </Row>
+                    <Col md={6} className='text-danger'>
+                        <pre>{JSON.stringify(error, null, 2)}</pre>
+                    </Col>
+                </Row>
             }
         </Container>
 
